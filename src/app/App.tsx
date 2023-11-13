@@ -23,15 +23,11 @@ import router from "../shared/router/router";
 const App = () => {
   const [activePanel, setActivePanel] = useState("home");
   const [fetchedUser, setUser] = useState<UserInfo | undefined>();
-  const [popout, setPopout] = useState<ReactNode | null>(
-    <ScreenSpinner size="large" />
-  );
 
   useEffect(() => {
     async function fetchData() {
       const user = await bridge.send("VKWebAppGetUserInfo");
       setUser(user);
-      setPopout(null);
     }
     fetchData();
   }, []);
@@ -44,7 +40,7 @@ const App = () => {
     <ConfigProvider>
       <AdaptivityProvider>
         <AppRoot>
-          <SplitLayout popout={popout}>
+          <SplitLayout>
             <SplitCol>
               <RouterProvider router={router} />
             </SplitCol>

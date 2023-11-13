@@ -1,17 +1,19 @@
 import { ReactNode } from "react";
-import NavBar from "../../widgets/navbar/ui/navbar";
+import Banner from "../../widgets/banner/ui/banner";
 
 const BasePage = ({
   children,
   title,
+  back,
 }: {
   children: ReactNode;
   title?: string;
+  back?: boolean;
 }) => {
   return (
     <div className="bg-white w-screen h-screen">
-      <NavBar title={title} />
-      {children}
+      <Banner back={back} title={title} />
+      <div className="p-10">{children}</div>
     </div>
   );
 };
