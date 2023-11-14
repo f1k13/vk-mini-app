@@ -1,5 +1,5 @@
 import { createStore } from "effector";
-import { getWeatherFx } from "../model/weather-effect";
+import { getWeatherFx } from "../lib/weather-effect";
 
 type Weather = {
   location: {

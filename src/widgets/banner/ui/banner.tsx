@@ -13,7 +13,7 @@ const Banner = ({ title, back }: { title?: string; back?: boolean }) => {
             <ArrowButton />
           </button>
         )}
-        <p className="text-40px">{title}</p>
+        <p className="text-40px max-[500px]:text-20px">{title}</p>
       </div>
     </div>
   );

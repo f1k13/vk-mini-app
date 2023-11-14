@@ -7,6 +7,9 @@ module.exports = {
       "32px": "32px",
       "40px": "40px",
     },
+    screens: {
+      "max-sm": "450px",
+    },
     colors: {
       headerColor: "#8DAEF3",
       textMainColor: "#343434",
