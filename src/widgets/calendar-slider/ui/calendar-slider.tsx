@@ -18,14 +18,20 @@ const CalendarSlider = () => {
     setCurrentWeek(prevWeek);
   };
   return (
-    <div className="flex w-full justify-between bg-blockColor">
-      <button onClick={handlePrevWeek}>
+    <div className="flex w-full gap-[20px] max-[571px]:gap-[10px] max-[425px]:gap-1 justify-between bg-blockColor mt-[28px]">
+      <button
+        onClick={handlePrevWeek}
+        className="bg-blockSecondaryColor p-5 max-[571px]:p-1"
+      >
         <ArrowButton />
       </button>
       {generateCalendar(currentWeek).map((item, index) => (
         <CalendarItem item={item} key={index} />
       ))}
-      <button onClick={handleNextWeek} className="rotate-180">
+      <button
+        onClick={handleNextWeek}
+        className="rotate-180 bg-blockSecondaryColor p-5 max-[571px]:p-1"
+      >
         <ArrowButton />
       </button>
     </div>

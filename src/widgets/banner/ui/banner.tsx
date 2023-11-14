@@ -7,13 +7,15 @@ const Banner = ({ title, back }: { title?: string; back?: boolean }) => {
       <div className="flex w-[100%] px-2 justify-between">
         {back && (
           <button
-            className="cursor-pointer shadow-outline bg-secondaryColor px-5 rounded-3xl"
+            className="cursor-pointer shadow-outline bg-secondaryColor py-2 px-5 rounded-3xl"
             onClick={() => router.navigate(-1)}
           >
             <ArrowButton />
           </button>
         )}
-        <p className="text-40px max-[500px]:text-20px">{title}</p>
+        <p className="text-40px max-[517px]:text-32px max-[450px]:text-20px max-[327px]:text-16px">
+          {title}
+        </p>
       </div>
     </div>
   );
