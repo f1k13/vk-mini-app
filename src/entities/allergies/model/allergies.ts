@@ -1,6 +1,6 @@
 import { createStore } from "effector";
 import { getAllergiesFx } from "../lib/allergies-fx";
-import { allergenAdd } from "../lib/allergies-events";
+import { allergenAdd, allergenDelete } from "../lib/allergies-events";
 
 export type Allergies = {
   id: number;
@@ -16,7 +16,8 @@ export const $allergies = createStore<Allergies[]>([]).on(
   getAllergiesFx.doneData,
   (_, data) => data,
 );
-export const $selectedAllergies = createStore<number[]>([]).on(
-  allergenAdd,
-  (state, allergies) => [...state, allergies],
-);
+export const $selectedAllergies = createStore<number[]>([])
+  .on(allergenAdd, (state, allergies) => [...state, allergies])
+  .on(allergenDelete, (state, allergies) =>
+    state.filter((item) => item !== allergies),
+  );

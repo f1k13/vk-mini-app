@@ -18,7 +18,6 @@ export const generateCalendar = (currentWeek: DateTime) => {
   for (let i = 0; i < 7; i++) {
     const day = startDate.plus({ days: i }).toFormat("ccc");
     const date = startDate.plus({ days: i }).toFormat("d.MM");
-
     data.push({
       day,
       date,

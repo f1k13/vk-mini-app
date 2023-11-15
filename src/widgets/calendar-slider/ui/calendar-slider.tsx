@@ -3,11 +3,15 @@ import { DateTime } from "luxon";
 import { generateCalendar } from "../lib/generate-calendar";
 import CalendarItem from "../../../features/calendar-item/ui/calendar-item";
 import ArrowButton from "../../../shared/icons/arrow-button";
+import { useStore } from "effector-react";
+import { $allergies } from "../../../entities/allergies/model/allergies";
 
 const CalendarSlider = () => {
   const today = DateTime.now();
 
   const [currentWeek, setCurrentWeek] = useState(today);
+  const allergies = useStore($allergies);
+
   const handleNextWeek = () => {
     const nextWeek = currentWeek.plus({ weeks: 1 });
     setCurrentWeek(nextWeek);

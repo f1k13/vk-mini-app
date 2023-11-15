@@ -8,7 +8,6 @@ import {
   SplitCol,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
-import { userFx } from "../entities/user/lib/userFx";
 import { RouterProvider } from "react-router-dom";
 import router from "../shared/router/router";
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   getAllergiesFx,
   sendAllergiesFx,
@@ -13,6 +13,9 @@ import {
   allergenAdd,
   allergenDelete,
 } from "../../../entities/allergies/lib/allergies-events";
+import clsx from "clsx";
+import router from "../../../shared/router/router";
+import { MAIN_ROUTE } from "../../../shared/router/paths";
 
 const AllergiesList = () => {
   const allergies = useStore($allergies);
@@ -20,6 +23,7 @@ const AllergiesList = () => {
 
   const setAllergies = () => {
     sendAllergiesFx(selected);
+    router.navigate(MAIN_ROUTE);
   };
   const setActive = (id: number) => {
     const find = selected.find((item) => item === id);
@@ -30,6 +34,7 @@ const AllergiesList = () => {
       allergenAdd(id);
     }
   };
+  console.log(allergies);
 
   useEffect(() => {
     getAllergiesFx();
@@ -48,8 +53,12 @@ const AllergiesList = () => {
         ))}
       </div>
       <button
+        disabled={selected.length > 0 ? false : true}
         onClick={() => setAllergies()}
-        className="bg-blockSecondaryColor mt-20 hover:bg-hoverButton transition-colors duration-200  shadow-outline w-[320px] text-textMainColor py-2 rounded-3xl"
+        className={clsx(
+          "bg-blockSecondaryColor mt-20 hover:bg-hoverButton transition-colors duration-200  shadow-outline w-[320px] text-textMainColor py-2 rounded-3xl",
+          "disabled:cursor-not-allowed hover:bg-blockSecondaryColor",
+        )}
       >
         Продолжить
       </button>
