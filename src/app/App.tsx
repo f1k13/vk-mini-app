@@ -14,7 +14,7 @@ import router from "../shared/router/router";
 
 const App = () => {
   useEffect(() => {
-    console.log(userFx());
+    userFx();
   }, []);
   return (
     <ConfigProvider>

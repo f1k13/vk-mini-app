@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { getWeatherFx } from "../../../entities/weather/lib/weather-effect";
 import Weather from "../../../features/weather/weather";
+import router from "../../../shared/router/router";
+import { ALLERGIES_ROUTE } from "../../../shared/router/paths";
 
 const ContainersMain = () => {
   useEffect(() => {
@@ -20,7 +22,12 @@ const ContainersMain = () => {
         </div>
       </div>
       <div className="text-textMainColor mt-[21px] w-full flex justify-center items-center  bg-blockSecondaryColor h-[69px] rounded-3xl shadow-outline p-5">
-        <p className="text-textMainColor text-20px ">Изменить аллергены</p>
+        <p
+          onClick={() => router.navigate(ALLERGIES_ROUTE)}
+          className="text-textMainColor text-20px "
+        >
+          Изменить аллергены
+        </p>
       </div>
     </div>
   );

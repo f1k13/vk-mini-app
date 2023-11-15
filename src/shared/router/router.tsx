@@ -1,8 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import { CALENDAR_ROUTE, MAIN_ROUTE, REACTIONS_ROUTE } from "./paths";
+import {
+  ALLERGIES_ROUTE,
+  CALENDAR_ROUTE,
+  MAIN_ROUTE,
+  REACTIONS_ROUTE,
+} from "./paths";
 import Main from "../../pages/main";
 import Reactions from "../../pages/reactions";
 import Calendar from "../../pages/calendar";
+import AllergiesSelect from "../../pages/allergies-select";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: CALENDAR_ROUTE,
     element: <Calendar />,
+  },
+  {
+    path: ALLERGIES_ROUTE,
+    element: <AllergiesSelect />,
   },
 ]);
 export default router;
