@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DateTime } from "luxon";
 import { generateCalendar } from "../lib/generate-calendar";
 import CalendarItem from "../../../features/calendar-item/ui/calendar-item";
 import ArrowButton from "../../../shared/icons/arrow-button";
-import { getAllergiesFx } from "../../../entities/allergies/lib/allergies-fx";
-import { useStore } from "effector-react";
-import { $allergies } from "../../../entities/allergies/model/allergies";
 
 const CalendarSlider = () => {
   const today = DateTime.now();

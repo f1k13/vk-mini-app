@@ -6,3 +6,6 @@ export const getAllergiesFx = createEffect(async () => {
   const { data } = await api.get<Allergies[]>("/allergens");
   return data;
 });
+export const sendAllergiesFx = createEffect<number[], void>(async (data) => {
+  await api.post("users/allergens", { allergens: data });
+});

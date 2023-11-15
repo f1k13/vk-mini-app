@@ -1,4 +1,6 @@
 import React from "react";
+import { allergenAdd } from "../../entities/allergies/lib/allergies-events";
+import clsx from "clsx";
 
 type Allergies = {
   id: number;
@@ -10,9 +12,23 @@ type Allergies = {
   crossReactions: string;
 };
 
-const AllergiesItem = ({ item, index }: { item: Allergies; index: number }) => {
+const AllergiesItem = ({
+  item,
+  active,
+  setActive,
+}: {
+  item: Allergies;
+  active: boolean;
+  setActive: (id: number) => void;
+}) => {
   return (
-    <div className="bg-blockSecondaryColor shadow-outline flex justify-between pl-[21px] pr-[12px] items-center w-[153px] h-[39px] rounded-3xl">
+    <div
+      onClick={() => setActive(item.id)}
+      className={clsx(
+        "bg-blockSecondaryColor cursor-pointer shadow-outline flex justify-between pl-[21px] pr-[12px] items-center w-[153px] h-[39px] rounded-3xl transition-colors duration-200 ",
+        active && "bg-selectedColor",
+      )}
+    >
       <p className="text-textMainColor text-16px">{item.title}</p>
       <span
         className="w-[16px] h-[16px] rounded-full"
