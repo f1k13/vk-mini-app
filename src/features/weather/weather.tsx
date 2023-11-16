@@ -3,13 +3,19 @@ import { useStore } from "effector-react";
 import { $weather } from "../../entities/weather/model/weather";
 import router from "../../shared/router/router";
 import { CALENDAR_ROUTE } from "../../shared/router/paths";
+import clsx from "clsx";
 
-const Weather = ({ button }: { button?: boolean }) => {
+const Weather = ({ button, height }: { button?: boolean; height: string }) => {
   const weather = useStore($weather);
   return (
-    <div className="bg-blockColor w-full flex justify-between h-[250px] p-[18px]  rounded-xl">
+    <div
+      className={clsx(
+        "bg-blockColor w-full flex justify-between p-[18px]  rounded-xl",
+        height,
+      )}
+    >
       <div className="flex flex-col">
-        <h2 className="text-textMainColor text-20px">Календарь</h2>
+        {button && <h2 className="text-textMainColor text-20px">Календарь</h2>}
         <p className="text-32px text-textMainColor max-[413px]:text-20px">
           {weather?.location.name}
         </p>

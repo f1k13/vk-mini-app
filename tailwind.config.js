@@ -21,6 +21,7 @@ module.exports = {
       blockSecondaryColor: "#D7F2FC",
       hoverButton: "#ABE8FF",
       selectedColor: "#7de4ff",
+      calendarColor: "#7E92BB",
     },
     extend: {
       boxShadow: {

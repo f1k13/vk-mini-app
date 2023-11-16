@@ -9,11 +9,11 @@ export const weatherApi = axios.create({
   },
 });
 export const api = axios.create({
-  baseURL: `http://localhost:3000/`,
+  baseURL: `http://localhost:4000/`,
   headers: { "Content-Type": "application/json" },
 });
 export const apiFormData = axios.create({
-  baseURL: `http://localhost:3000`,
+  baseURL: `http://localhost:4000`,
   headers: { "Content-Type": "multipart/form-data" },
 });
 export const setUserIdToHeaders = (userId: number) => {

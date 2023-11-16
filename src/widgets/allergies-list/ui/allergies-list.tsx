@@ -34,7 +34,6 @@ const AllergiesList = () => {
       allergenAdd(id);
     }
   };
-  console.log(allergies);
 
   useEffect(() => {
     getAllergiesFx();
