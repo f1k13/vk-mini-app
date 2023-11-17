@@ -11,63 +11,64 @@ import {
   sendAllergiesFx,
 } from "../../../entities/allergies/lib/allergies-fx";
 import AllergiesItemUser from "../../../features/allergies-item-user/ui/allergies-item-user";
-import {
-  selectedAdd,
-  selectedDelete,
-} from "../../../entities/allergies/lib/allergies-events";
 
 const AllergiesListUser = () => {
-  const selectedAllergies = useStore($allergensByUser);
   const allergies = useStore($allergies);
-  const [newSelected, setNewSelected] = useState<number[]>([]);
-  const find = allergies.filter(
-    (item) => !selectedAllergies.some((select) => select.id === item.id),
-  );
+  const [newSelected, setNewSelected] = useState<Allergies[]>([]);
+  const [availableAllergens, setAvailableAllergens] = useState<Allergies[]>([]);
 
-  const handleAddToAvailable = (item: Allergies) => {
-    selectedDelete(item);
-    setNewSelected([...newSelected, item.id]);
-    console.log(newSelected);
-    sendAllergiesFx(newSelected);
-  };
+  const handleClick = (item: Allergies) => {
+    if (newSelected.find((allergen) => allergen.id === item.id)) {
+      setNewSelected((prev) =>
+        prev.filter((allergen) => allergen.id !== item.id),
+      );
+      setAvailableAllergens((prev) => [...prev, item]);
+    } else {
+      setNewSelected((prev) => [...prev, item]);
+      setAvailableAllergens((prev) =>
+        prev.filter((allergen) => allergen.id !== item.id),
+      );
+    }
 
-  const allergenAddToSelected = (item: Allergies) => {
-    selectedAdd(item);
-    setNewSelected([...newSelected, item.id]);
-    console.log(newSelected);
-    sendAllergiesFx(newSelected);
+    setNewSelected((prev) => {
+      sendAllergiesFx(prev.map((item) => item.id));
+      return prev;
+    });
   };
 
   useEffect(() => {
-    getSelectedAllergiesFx();
-    getAllergiesFx();
+    getAllergiesFx().then((res) => setAvailableAllergens(() => res));
+
+    getSelectedAllergiesFx().then((res) => setNewSelected(() => [...res]));
   }, []);
 
   return (
     <div className="pl-[17px] pr-[30px] w-full">
-      <h1 className="text-textMainColor text-24px">Выбранные</h1>
+      <h2 className="text-textMainColor text-24px">Выбранные</h2>
       <div className="grid grid-cols-2 gap-5 mt-[13px] w-full">
-        {selectedAllergies.map((item, index) => (
+        {newSelected.map((item, index) => (
           <AllergiesItemUser
             item={item}
             key={index}
-            onClick={() => {
-              handleAddToAvailable(item);
-            }}
+            onClick={() => handleClick(item)}
           />
         ))}
       </div>
-      <h1 className="text-textMainColor mt-[13px] text-left text-24px">
+      <h2 className="text-textMainColor mt-[13px] text-left text-24px">
         Доступные
-      </h1>
+      </h2>
       <div className="grid grid-cols-2 gap-5 mt-[13px] w-full">
-        {find.map((item, index) => (
-          <AllergiesItemUser
-            item={item}
-            key={index}
-            onClick={() => allergenAddToSelected(item)}
-          />
-        ))}
+        {allergies
+          .filter(
+            (item) => !newSelected.find((allergen) => allergen.id === item.id),
+          )
+          .map((item, index) => (
+            <AllergiesItemUser
+              item={item}
+              key={index}
+              onClick={() => handleClick(item)}
+            />
+          ))}
       </div>
     </div>
   );

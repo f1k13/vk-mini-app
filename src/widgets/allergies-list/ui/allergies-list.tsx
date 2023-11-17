@@ -51,7 +51,7 @@ const AllergiesList = () => {
         ))}
       </div>
       <button
-        disabled={selected.length > 0 ? false : true}
+        disabled={selected.length <= 0}
         onClick={() => setAllergies()}
         className={clsx(
           "bg-blockSecondaryColor mt-20 hover:bg-hoverButton transition-colors duration-200  shadow-outline w-[320px] text-textMainColor py-2 rounded-3xl",
