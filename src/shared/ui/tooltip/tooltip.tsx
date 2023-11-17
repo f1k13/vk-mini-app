@@ -12,10 +12,12 @@ const Tooltip = ({
   border,
   endDate,
   startDate,
+  widthGraph,
 }: {
   color: string;
   title?: string;
   width?: string;
+  widthGraph?: number;
   height: string;
   border?: string;
   endDate?: string;
@@ -26,11 +28,10 @@ const Tooltip = ({
 
   const totalDays = Math.abs(endDateObj.diff(startDateObj, "days").days) + 1;
   const widthPercent = Math.ceil((totalDays / 365) * 100);
-  console.log(widthPercent);
   return (
     <div
-      style={{ backgroundColor: color, width: `${widthPercent}%` }}
-      className={clsx(styles.root, width && width, height, border && border)}
+      style={{ backgroundColor: color, width: `${widthGraph}px` }}
+      className={clsx(styles.root, width, height, border && border)}
     >
       <p style={{ backgroundColor: color }} className={styles.text}>
         {title}
