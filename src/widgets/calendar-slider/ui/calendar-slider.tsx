@@ -4,7 +4,10 @@ import CalendarItem from "../../../features/calendar-item/ui/calendar-item";
 import ArrowButton from "../../../shared/icons/arrow-button";
 import { useStore } from "effector-react";
 import { $calendarDays } from "../../../entities/allergies/model/allergies";
-import { setCalendarAllergensFx } from "../../../entities/allergies/lib/allergies-fx";
+import {
+  getAllergiesUserForMonth,
+  setCalendarAllergensFx,
+} from "../../../entities/allergies/lib/allergies-fx";
 import { setDaysOfMonth } from "../../../entities/calendar/lib/calendar-event";
 
 const CalendarSlider = () => {
@@ -19,6 +22,9 @@ const CalendarSlider = () => {
     const startDate = nextWeek.startOf("week").toFormat("dd.MM");
     const endDate = nextWeek.endOf("week").toFormat("dd.MM");
     const dayInMonth = nextWeek.daysInMonth;
+    const month = nextWeek.toFormat("MM");
+
+    getAllergiesUserForMonth(Number(month));
 
     setCalendarAllergensFx({
       start: String(startDate),
@@ -26,6 +32,7 @@ const CalendarSlider = () => {
     });
 
     setCurrentWeek(nextWeek);
+
     setDaysOfMonth(Number(dayInMonth));
   };
 
@@ -34,6 +41,8 @@ const CalendarSlider = () => {
     const startDate = nextWeek.startOf("week").toFormat("dd.MM");
     const endDate = nextWeek.endOf("week").toFormat("dd.MM");
     const dayInMonth = nextWeek.daysInMonth;
+    const month = nextWeek.toFormat("MM");
+    getAllergiesUserForMonth(Number(month));
 
     setCalendarAllergensFx({
       start: String(startDate),
@@ -41,6 +50,7 @@ const CalendarSlider = () => {
     });
 
     setDaysOfMonth(Number(dayInMonth));
+
     setCurrentWeek(nextWeek);
   };
 
@@ -59,10 +69,10 @@ const CalendarSlider = () => {
   }, []);
 
   return (
-    <div className="flex w-full gap-[20px] max-[571px]:gap-[10px] max-[425px]:gap-1 items-center justify-between bg-blockColor mt-[28px]">
+    <div className="flex w-full gap-[20px] max-[571px]:gap-[10px] max-[425px]:gap-1 items-center justify-between bg-blockColor mt-[28px] rounded-xl ">
       <button
         onClick={handlePrevWeek}
-        className="bg-blockSecondaryColor px-5 h-[90px] max-[571px]:p-1"
+        className="bg-blockSecondaryColor px-5 h-[130px] max-[571px]:p-1 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"
       >
         <ArrowButton />
       </button>
@@ -71,7 +81,7 @@ const CalendarSlider = () => {
       ))}
       <button
         onClick={handleNextWeek}
-        className="rotate-180 bg-blockSecondaryColor px-5 h-[90px] max-[571px]:p-1"
+        className="rotate-180 bg-blockSecondaryColor px-5 h-[130px] max-[571px]:p-1 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"
       >
         <ArrowButton />
       </button>

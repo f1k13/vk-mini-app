@@ -1,12 +1,8 @@
-
-.root {
-    width: 15px;
-    height: 15px;
-    border-radius: 100%;
-    margin-top: 5px;
-    position: relative;
+.root{
     display: flex;
     flex-direction: column;
+    position: relative;
+    margin-top: 10px;
 }
 
 .root:hover {
@@ -21,11 +17,11 @@
     opacity: 0;
     border-radius: 10px;
     color: white;
-    padding: 1px 5px;
-    font-size: 12px;
     position: absolute;
     top: -20px;
-    left: -10px;
+    left: -15px;
+    padding: 1px 5px;
+    font-size: 12px;
     transition: opacity 0.3s linear;
-
+    width: 50px;
 }

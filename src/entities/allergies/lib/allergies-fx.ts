@@ -17,3 +17,17 @@ export const setCalendarAllergensFx = createEffect<
   const { data } = await api.post("/allergens/week", { start, end });
   return data;
 });
+
+export const getSelectedAllergiesFx = createEffect(async () => {
+  const { data } = await api.get<Allergies[]>("allergens/byuser");
+  return data;
+});
+
+export const getAllergiesUserForMonth = createEffect<number, Allergies[]>(
+  async (month) => {
+    const { data } = await api.get<Allergies[]>(
+      `allergens/month/${month < 9 ? `0${month}` : month}`,
+    );
+    return data;
+  },
+);

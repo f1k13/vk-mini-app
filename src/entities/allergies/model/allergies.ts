@@ -1,6 +1,16 @@
 import { createStore } from "effector";
-import { getAllergiesFx, setCalendarAllergensFx } from "../lib/allergies-fx";
-import { allergenAdd, allergenDelete } from "../lib/allergies-events";
+import {
+  getAllergiesFx,
+  getAllergiesUserForMonth,
+  getSelectedAllergiesFx,
+  setCalendarAllergensFx,
+} from "../lib/allergies-fx";
+import {
+  allergenAdd,
+  allergenDelete,
+  selectedAdd,
+  selectedDelete,
+} from "../lib/allergies-events";
 
 export type Allergies = {
   id: number;
@@ -36,5 +46,22 @@ export const $selectedAllergies = createStore<number[]>([])
 
 export const $calendarDays = createStore<CalendarDay[]>([]).on(
   setCalendarAllergensFx.doneData,
+  (_, data) => data,
+);
+
+export const $allergensByUser = createStore<Allergies[]>([])
+  .on(getSelectedAllergiesFx.doneData, (_, data) => data)
+  .on(selectedAdd, (state, data) => [...state, data])
+  .on(selectedDelete, (state, data) =>
+    state.filter((item) => item.id !== data.id),
+  );
+
+export const $allergensUser = createStore<Allergies[]>([]).on(
+  getSelectedAllergiesFx.doneData,
+  (_, data) => data,
+);
+
+export const $allergensMonth = createStore<Allergies[]>([]).on(
+  getAllergiesUserForMonth.doneData,
   (_, data) => data,
 );

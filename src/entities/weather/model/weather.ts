@@ -2,14 +2,14 @@ import { createStore } from "effector";
 import { getWeatherFx } from "../lib/weather-effect";
 
 type Weather = {
-  location: {
-    name: string;
-  };
-  current: {
-    temp_c: number;
-    condition: {
-      icon: string;
+  geo_object: {
+    locality: {
+      name: string;
     };
+  };
+  fact: {
+    temp: number;
+    icon: string;
   };
 };
 export const $weather = createStore<Weather | null>(null).on(

@@ -1,5 +1,5 @@
 import React from "react";
-import { allergenAdd } from "../../entities/allergies/lib/allergies-events";
+import { allergenAdd } from "../../../entities/allergies/lib/allergies-events";
 import clsx from "clsx";
 
 type Allergies = {
@@ -25,7 +25,7 @@ const AllergiesItem = ({
     <div
       onClick={() => setActive(item.id)}
       className={clsx(
-        "bg-blockSecondaryColor cursor-pointer shadow-outline flex justify-between pl-[21px] pr-[12px] items-center w-[153px] h-[39px] rounded-3xl transition-colors duration-200 ",
+        "bg-blockSecondaryColor cursor-pointer shadow-outline flex justify-between hover:bg-hoverButton pl-[21px] pr-[12px] items-center w-[153px] h-[39px] rounded-3xl transition-colors duration-200 ",
         active && "bg-selectedColor",
       )}
     >

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   getAllergiesFx,
   sendAllergiesFx,
@@ -8,7 +8,7 @@ import {
   $allergies,
   $selectedAllergies,
 } from "../../../entities/allergies/model/allergies";
-import AllergiesItem from "../../../features/allergies-item/allergies-item";
+import AllergiesItem from "../../../features/allergies-item/ui/allergies-item";
 import {
   allergenAdd,
   allergenDelete,
@@ -27,7 +27,6 @@ const AllergiesList = () => {
   };
   const setActive = (id: number) => {
     const find = selected.find((item) => item === id);
-    console.log(id);
     if (find) {
       allergenDelete(find);
     } else {
@@ -48,7 +47,7 @@ const AllergiesList = () => {
             setActive={setActive}
             active={selected.includes(item.id)}
             key={index}
-          ></AllergiesItem>
+          />
         ))}
       </div>
       <button

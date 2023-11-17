@@ -5,7 +5,11 @@ import CalendarSlider from "../widgets/calendar-slider/ui/calendar-slider";
 
 const Calendar = () => {
   return (
-    <BasePage title="Календарь цветения" back={true}>
+    <BasePage
+      className="overflow-hidden"
+      title="Календарь цветения"
+      back={true}
+    >
       <CalendarSlider />
       <CalendarStatistics />
     </BasePage>
