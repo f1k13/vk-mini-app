@@ -1,5 +1,8 @@
 import ArrowButton from "../../../shared/icons/arrow-button";
 import router from "../../../shared/router/router";
+import { useState } from "react";
+import { useStore } from "effector-react";
+import { $user } from "../../../entities/user/model/user";
 
 const Banner = ({ title, back }: { title?: string; back?: boolean }) => {
   return (

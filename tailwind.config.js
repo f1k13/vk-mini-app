@@ -23,6 +23,7 @@ module.exports = {
       hoverButton: "#ABE8FF",
       selectedColor: "#7de4ff",
       calendarColor: "#7E92BB",
+      primaryColor: "#36476B",
     },
     extend: {
       boxShadow: {

@@ -8,8 +8,11 @@ import {
   getAllergiesUserForMonth,
   setCalendarAllergensFx,
 } from "../../../entities/allergies/lib/allergies-fx";
-import { setDaysOfMonth } from "../../../entities/calendar/lib/calendar-event";
-import { setCurrentMonth } from "../../../entities/calendar/model/calendar-days";
+import {
+  setCurrentMonthFormat,
+  setCurrentMonth,
+  setDaysOfMonth,
+} from "../../../entities/calendar/lib/calendar-event";
 
 const CalendarSlider = () => {
   const today = DateTime.now();
@@ -32,6 +35,8 @@ const CalendarSlider = () => {
       end: String(endDate),
     });
 
+    setCurrentMonthFormat(nextWeek.toFormat("LLLL", { locale: "ru-RU" }));
+
     setCurrentWeek(nextWeek);
 
     setDaysOfMonth(Number(dayInMonth));
@@ -53,6 +58,8 @@ const CalendarSlider = () => {
 
     setDaysOfMonth(Number(dayInMonth));
 
+    setCurrentMonthFormat(nextWeek.toFormat("LLLL", { locale: "ru-RU" }));
+
     setCurrentWeek(nextWeek);
   };
 
@@ -71,10 +78,10 @@ const CalendarSlider = () => {
   }, []);
 
   return (
-    <div className="flex w-full gap-[20px] max-[571px]:gap-[10px] max-[425px]:gap-1 items-center justify-between bg-blockColor mt-[28px] rounded-xl ">
+    <div className="flex w-full gap-[10px] h-[105px] max-[571px]:gap-[10px] max-[425px]:gap-1 items-center justify-between bg-blockColor mt-[20px] rounded-xl ">
       <button
         onClick={handlePrevWeek}
-        className="bg-blockSecondaryColor px-5 h-[130px] max-[571px]:p-1 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"
+        className="bg-blockSecondaryColor px-5 h-full max-[571px]:p-1 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"
       >
         <ArrowButton />
       </button>
@@ -83,7 +90,7 @@ const CalendarSlider = () => {
       ))}
       <button
         onClick={handleNextWeek}
-        className="rotate-180 bg-blockSecondaryColor px-5 h-[130px] max-[571px]:p-1 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"
+        className="rotate-180 bg-blockSecondaryColor px-5 h-full max-[571px]:p-1 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"
       >
         <ArrowButton />
       </button>

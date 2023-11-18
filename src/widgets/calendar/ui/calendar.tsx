@@ -1,6 +1,7 @@
 import { useStore } from "effector-react";
 import {
   $currentMonth,
+  $currentMonthFormat,
   $daysMonth,
 } from "../../../entities/calendar/model/calendar-days";
 import Weather from "../../../features/weather/ui/weather";
@@ -16,6 +17,7 @@ import {
   Tooltip as BarTooltip,
   Cell,
 } from "recharts";
+import { setCurrentMonthFormat } from "../../../entities/calendar/lib/calendar-event";
 
 const CalendarStatistics = () => {
   const today = DateTime.now();
@@ -23,16 +25,10 @@ const CalendarStatistics = () => {
   const allergiesMonth = useStore($allergensMonth);
   const currentMonth = useStore($currentMonth);
   const month = today.toFormat("MM");
-  const parentRef = useRef<HTMLDivElement | null>(null);
-  const [dayWith, setDayWith] = useState<number>(0);
-
+  const currentMonthToFormat = useStore($currentMonthFormat);
   useEffect(() => {
     getAllergiesUserForMonth(Number(month));
-
-    if (parentRef.current?.getBoundingClientRect().width) {
-      const day = parentRef.current.getBoundingClientRect().width / days.length;
-      setDayWith(day);
-    }
+    setCurrentMonthFormat(today.toFormat("LLLL", { locale: "ru-RU" }));
   }, []);
 
   const data = allergiesMonth.map((item) => {
@@ -58,9 +54,32 @@ const CalendarStatistics = () => {
     };
   });
 
+  const CustomTooltip = ({
+    payload,
+    label,
+    active,
+  }: {
+    payload: { value: string }[];
+    label: string;
+    active: boolean;
+  }) => {
+    if (active) {
+      return (
+        <div className="custom-tooltip">
+          <p className="intro">{label}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
-    <div className=" w-full h-screen bg-white mt-[5px] ">
+    <div className=" w-full bg-white mt-[5px] pl-[20px] pr-[35px] ">
       <h2 className="text-textMainColor text-32px">График цветения</h2>
+      <p className="bg-primaryColor w-full uppercase text-24px my-[20px] py-2 rounded-2xl text-center">
+        {currentMonthToFormat}
+      </p>
       <BarChart
         width={730}
         height={250}
@@ -74,15 +93,19 @@ const CalendarStatistics = () => {
             (_, i) => i + 1,
           )}
         />
-        <BarTooltip />
+        <BarTooltip
+          content={({ label, payload, active }: any) => (
+            <CustomTooltip label={label} active={active} payload={payload} />
+          )}
+        />
         <Bar dataKey="date">
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Bar>
       </BarChart>
-      <div className="flex justify-center mt-[10px] mb-10">
-        <Weather height={"h-[150px]"} button={false} />
+      <div className="flex justify-center mt-[20px]">
+        <Weather height={"h-[180px]"} button={false} />
       </div>
     </div>
   );

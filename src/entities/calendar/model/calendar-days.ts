@@ -1,5 +1,9 @@
 import { createEvent, createStore } from "effector";
-import { setDaysOfMonth } from "../lib/calendar-event";
+import {
+  setCurrentMonth,
+  setCurrentMonthFormat,
+  setDaysOfMonth,
+} from "../lib/calendar-event";
 
 export const $daysMonth = createStore<number[]>([]).on(
   setDaysOfMonth,
@@ -12,9 +16,12 @@ export const $daysMonth = createStore<number[]>([]).on(
   },
 );
 
-export const setCurrentMonth = createEvent<string>();
-
 export const $currentMonth = createStore<string>("").on(
   setCurrentMonth,
+  (_, month) => month,
+);
+
+export const $currentMonthFormat = createStore<string>("").on(
+  setCurrentMonthFormat,
   (_, month) => month,
 );
