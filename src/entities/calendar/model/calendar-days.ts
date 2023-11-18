@@ -1,4 +1,4 @@
-import { createStore } from "effector";
+import { createEvent, createStore } from "effector";
 import { setDaysOfMonth } from "../lib/calendar-event";
 
 export const $daysMonth = createStore<number[]>([]).on(
@@ -10,4 +10,11 @@ export const $daysMonth = createStore<number[]>([]).on(
     }
     return [...state];
   },
+);
+
+export const setCurrentMonth = createEvent<string>();
+
+export const $currentMonth = createStore<string>("").on(
+  setCurrentMonth,
+  (_, month) => month,
 );

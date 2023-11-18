@@ -9,6 +9,7 @@ import {
   setCalendarAllergensFx,
 } from "../../../entities/allergies/lib/allergies-fx";
 import { setDaysOfMonth } from "../../../entities/calendar/lib/calendar-event";
+import { setCurrentMonth } from "../../../entities/calendar/model/calendar-days";
 
 const CalendarSlider = () => {
   const today = DateTime.now();
@@ -25,7 +26,7 @@ const CalendarSlider = () => {
     const month = nextWeek.toFormat("MM");
 
     getAllergiesUserForMonth(Number(month));
-
+    setCurrentMonth(month);
     setCalendarAllergensFx({
       start: String(startDate),
       end: String(endDate),
@@ -43,6 +44,7 @@ const CalendarSlider = () => {
     const dayInMonth = nextWeek.daysInMonth;
     const month = nextWeek.toFormat("MM");
     getAllergiesUserForMonth(Number(month));
+    setCurrentMonth(month);
 
     setCalendarAllergensFx({
       start: String(startDate),
