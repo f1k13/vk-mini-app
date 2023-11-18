@@ -3,13 +3,16 @@ import { getWeatherFx } from "../lib/weather-effect";
 
 type Weather = {
   geo_object: {
-    locality: {
+    province: {
       name: string;
     };
   };
   fact: {
     temp: number;
     icon: string;
+    feels_like: number;
+    wind_speed: number;
+    season: string;
   };
 };
 export const $weather = createStore<Weather | null>(null).on(

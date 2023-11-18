@@ -35,7 +35,7 @@ const CalendarStatistics = () => {
           ))}
         </div>
         <div ref={parentRef} className="flex w-full gap-5 items-end">
-          {allergiesMonth.map((item) =>
+          {allergiesMonth.map((item) => (
             <div className="flex flex-col ">
               <div
                 className="w-[10px] h-[200px]"

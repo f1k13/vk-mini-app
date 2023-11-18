@@ -18,7 +18,7 @@ const Weather = ({ button, height }: { button?: boolean; height: string }) => {
       <div className="flex flex-col">
         {button && <h2 className="text-textMainColor text-20px">Календарь</h2>}
         <p className="text-32px text-textMainColor max-[413px]:text-20px">
-          {weather?.geo_object.locality.name.replace("округ", "")}
+          {weather?.geo_object.province.name}
         </p>
         <span className="text-textMainColor text-40px max-[413px]:text-32px">
           {weather?.fact.temp}
