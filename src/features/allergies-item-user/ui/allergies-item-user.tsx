@@ -10,9 +10,13 @@ const AllergiesItemUser = ({
   return (
     <div
       onClick={() => onClick(item)}
-      className="bg-blockSecondaryColor pl-[27px] cursor-pointer py-2 w-full rounded-3xl shadow-outline transition-colors duration-200 hover:bg-hoverButton"
+      className="bg-blockSecondaryColor flex justify-between w-full items-center px-[27px] cursor-pointer py-2 rounded-3xl shadow-outline transition-colors duration-200 hover:bg-hoverButton"
     >
       <p className="text-textMainColor text-20px">{item.title}</p>
+      <span
+        className="w-[10px] h-[10px] rounded-full"
+        style={{ backgroundColor: item.color }}
+      ></span>
     </div>
   );
 };

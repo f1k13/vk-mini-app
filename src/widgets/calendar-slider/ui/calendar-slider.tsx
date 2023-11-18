@@ -78,7 +78,7 @@ const CalendarSlider = () => {
   }, []);
 
   return (
-    <div className="flex w-full gap-[10px] h-[105px] max-[571px]:gap-[10px] max-[425px]:gap-1 items-center justify-between bg-blockColor mt-[20px] rounded-xl ">
+    <div className="flex w-full gap-[10px] pr-[18px] h-[105px] max-[650px]:h-[135px] max-[339px]:h-[170px] max-[571px]:gap-[10px] max-[425px]:gap-1 items-center justify-between bg-blockColor mt-[20px] rounded-xl ">
       <button
         onClick={handlePrevWeek}
         className="bg-blockSecondaryColor px-5 h-full max-[571px]:p-1 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"

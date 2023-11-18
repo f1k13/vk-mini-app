@@ -20,7 +20,8 @@ const Weather = ({ button, height }: { button?: boolean; height: string }) => {
         {button && <h2 className="text-textMainColor text-20px">Календарь</h2>}
         <p
           className={clsx(
-            button && "text-textMainColor text-40px max-[413px]:text-20px",
+            button &&
+              "text-textMainColor text-40px max-[413px]:text-20px max-[650px]:text-20px max-[341px]:text-16px",
             "text-20px text-textMainColor",
           )}
         >
@@ -29,7 +30,8 @@ const Weather = ({ button, height }: { button?: boolean; height: string }) => {
         <div className="flex w-full items-center">
           <span
             className={clsx(
-              button && "text-textMainColor text-40px max-[413px]:text-32px",
+              button &&
+                "text-textMainColor text-40px max-[413px]:text-32px max-[650px]:text-32px max-[341px]:text-20px",
               "text-32px text-textMainColor",
             )}
           >
@@ -45,7 +47,8 @@ const Weather = ({ button, height }: { button?: boolean; height: string }) => {
         </div>
         <span
           className={clsx(
-            button && "text-textMainColor text-32px",
+            button &&
+              "text-textMainColor text-32px max-[650px]:text-20px max-[341px]:text-16px",
             "text-20px text-textMainColor",
           )}
         >
@@ -63,7 +66,10 @@ const Weather = ({ button, height }: { button?: boolean; height: string }) => {
         )}
         {button && (
           <img
-            className={clsx(button && "w-[150px] h-[150px]")}
+            className={clsx(
+              button &&
+                "w-[150px] h-[150px] max-[300px]:w-[100px] max-[300px]:h-[100px]",
+            )}
             src={`https://yastatic.net/weather/i/icons/funky/dark/${weather?.fact.icon}.svg`}
             alt=""
           />

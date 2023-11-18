@@ -28,7 +28,7 @@ const ContainersMain = () => {
           onClick={() => router.navigate(REACTIONS_ROUTE)}
           className=" w-[45%]  flex justify-center items-center bg-blockSecondaryColor h-[120px] rounded-3xl shadow-outline p-5 transition-colors duration-200 hover:bg-hoverButton cursor-pointer"
         >
-          <p className="text-textMainColor text-20px max-[359px]:text-16px">
+          <p className="text-textMainColor text-20px max-[359px]:text-16px text-center">
             Перекрёстные реакции
           </p>
         </div>
