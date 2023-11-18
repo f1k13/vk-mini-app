@@ -33,7 +33,7 @@ const Weather = ({ button, height }: { button?: boolean; height: string }) => {
               "text-32px text-textMainColor",
             )}
           >
-            {weather?.fact.temp}
+            {weather?.fact.temp}°
           </span>
           {!button && (
             <img
@@ -49,7 +49,7 @@ const Weather = ({ button, height }: { button?: boolean; height: string }) => {
             "text-20px text-textMainColor",
           )}
         >
-          Ощущается как {weather?.fact.feels_like}
+          Ощущается как {weather?.fact.feels_like}°
         </span>
       </div>
       <div className={clsx(button && "flex flex-col h-full", "flex")}>
