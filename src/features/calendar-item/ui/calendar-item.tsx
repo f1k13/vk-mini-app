@@ -11,14 +11,9 @@ const CalendarItem = ({ item }: { item: CalendarDay }) => {
       <div className="flex w-full gap-x-3 mt-[15px] justify-center flex-wrap items-center">
         {item.allergens &&
           item.allergens.map((item) => (
-            <Tooltip
-              width={"w-[15px]"}
-              height={"h-[15px]"}
-              key={item.id}
-              title={item.title}
-              color={item.color}
-              border={"rounded-full"}
-            />
+            <Tooltip color={item.color} key={item.id}>
+              {item.title}
+            </Tooltip>
           ))}
       </div>
     </div>

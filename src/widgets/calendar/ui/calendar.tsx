@@ -1,8 +1,6 @@
 import { useStore } from "effector-react";
 import { $daysMonth } from "../../../entities/calendar/model/calendar-days";
-import CalendarStatisticsItem from "../../../features/calendar-statistics-item/ui/calendar-statistics-item";
 import Weather from "../../../features/weather/ui/weather";
-import Tooltip from "../../../shared/ui/tooltip/tooltip";
 import { $allergensMonth } from "../../../entities/allergies/model/allergies";
 import { useEffect, useRef, useState } from "react";
 import { getAllergiesUserForMonth } from "../../../entities/allergies/lib/allergies-fx";
@@ -24,30 +22,31 @@ const CalendarStatistics = () => {
       setDayWith(day);
     }
   }, []);
+
   return (
-    <div className=" w-full h-1/2 mt-[5px] px-[15px] ">
+    <div className=" w-full h-screen bg-white mt-[5px] ">
       <h2 className="text-textMainColor text-32px">График цветения</h2>
-      <div className="bg-blockColor flex flex-col mt-[5px] rounded-xl w-full h-[60%] px-[20px] ">
-        <div className="flex justify-between w-full">
+      <div className="bg-blockColor flex mt-[5px] rounded-xl w-full h-[80%] px-[20px] ">
+        <div className="flex flex-col-reverse w-[20%] h-full">
           {days.map((item) => (
-            <CalendarStatisticsItem item={item} key={item} />
+            <p className="text-textMainColor text-12px w-[10px]" key={item}>
+              {item}
+            </p>
           ))}
         </div>
-        <div ref={parentRef} className="mt-5 flex pl-[5px] flex-col h-full">
-          {allergiesMonth.map((item) => (
-            <Tooltip
-              color={item.color}
-              title={item.title}
-              startDate={item.start}
-              endDate={item.end}
-              height={`h-[9px]`}
-              widthGraph={(dayWith - 2) * days.length}
-              key={item.id}
-            />
+        <div ref={parentRef} className="flex w-full gap-5 items-end">
+          {allergiesMonth.map((item) =>
+            <div className="flex flex-col ">
+              <div
+                className="w-[10px] h-[200px]"
+                style={{ backgroundColor: item.color }}
+              ></div>
+              <p className="text-textMainColor text-16px">{item.title}</p>
+            </div>
           ))}
         </div>
       </div>
-      <div className="flex justify-center mt-[10px]">
+      <div className="flex justify-center mt-[10px] mb-10">
         <Weather height={"h-[150px]"} button={false} />
       </div>
     </div>

@@ -15,7 +15,6 @@ const BasePage = ({
   back?: boolean;
   className?: string;
 }) => {
-  const user = useStore($user);
   return (
     <div className={clsx("bg-white w-screen h-screen", className)}>
       <Banner back={back} title={title} />
