@@ -8,7 +8,6 @@ import clsx from "clsx";
 const CalendarItem = ({ item }: { item: CalendarDay }) => {
   const today = DateTime.now();
   const day = today.toFormat("dd.MM");
-  console.log(day);
   return (
     <div
       className={clsx(
