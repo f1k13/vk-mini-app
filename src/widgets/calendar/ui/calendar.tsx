@@ -6,7 +6,7 @@ import {
 } from "../../../entities/calendar/model/calendar-days";
 import Weather from "../../../features/weather/ui/weather";
 import { $allergensMonth } from "../../../entities/allergies/model/allergies";
-import { useEffect, useRef, useState } from "react";
+import {Fragment, useEffect, useRef, useState} from "react";
 import { getAllergiesUserForMonth } from "../../../entities/allergies/lib/allergies-fx";
 import { DateTime } from "luxon";
 import {
@@ -19,10 +19,13 @@ import {
 } from "recharts";
 import { setCurrentMonthFormat } from "../../../entities/calendar/lib/calendar-event";
 
+import {temp} from '../data'
+
 const CalendarStatistics = () => {
   const today = DateTime.now();
   const days = useStore($daysMonth);
-  const allergiesMonth = useStore($allergensMonth);
+  // const allergiesMonth = useStore($allergensMonth);
+  const allergiesMonth = temp;
   const currentMonth = useStore($currentMonth);
   const month = today.toFormat("MM");
   const currentMonthToFormat = useStore($currentMonthFormat);
@@ -35,7 +38,8 @@ const CalendarStatistics = () => {
     `11.${currentMonth}-20.${currentMonth}`,
     `21.${currentMonth}-${days.length - 1}.${currentMonth}`,
   ];
-  const data = allergiesMonth.map((item) => {
+
+  const dataO = allergiesMonth.map((item) => {
     const startDate = DateTime.fromFormat(item.start, "dd.MM");
     const endDate = DateTime.fromFormat(item.end, "dd.MM");
 
@@ -69,6 +73,48 @@ const CalendarStatistics = () => {
     };
   });
 
+  const data = [
+    {
+      period: `01.${currentMonth}-10.${currentMonth}`,
+      allergens: allergiesMonth.map((item) => {
+        const intensity = item.intensity.find((inten) => inten.period === `01.${currentMonth}-10.${currentMonth}`);
+        if (intensity) {
+          return {
+            title: item.title,
+            value: intensity.value[0] === '>' ? intensity.value.slice(1) : intensity.value.split("-")[1]
+          }
+        }
+        return null;
+      }).filter((item) => item !== null)
+    },
+    {
+      period: `11.${currentMonth}-20.${currentMonth}`,
+      allergens: allergiesMonth.map((item) => {
+        const intensity = item.intensity.find((inten) => inten.period === `11.${currentMonth}-20.${currentMonth}`);
+        if (intensity) {
+          return {
+            title: item.title,
+            value: intensity.value[0] === '>' ? intensity.value.slice(1) : intensity.value.split("-")[1]
+          }
+        }
+        return null;
+      }).filter((item) => item !== null)
+    },
+    {
+      period: `21.${currentMonth}-${days.length}.${currentMonth}`,
+      allergens: allergiesMonth.map((item) => {
+        const intensity = item.intensity.find((inten) => inten.period === `21.${currentMonth}-${days.length}.${currentMonth}`);
+        if (intensity) {
+          return {
+            title: item.title,
+            value: intensity.value[0] === '>' ? intensity.value.slice(1) : intensity.value.split("-")[1]
+          }
+        }
+        return null;
+      }).filter((item) => item !== null)
+    }
+  ]
+
   console.log(data);
   const containerRef = useRef<HTMLDivElement>(null);
   const CustomTooltip = ({
@@ -88,6 +134,12 @@ const CalendarStatistics = () => {
 
     return null;
   };
+
+
+
+  const maxLength = Math.max(...data.map((item) => item.allergens.length))
+
+
   return (
     <div className=" w-full bg-white mt-[5px] pl-[20px] pr-[35px] ">
       <h2 className="text-textMainColor text-32px">График цветения</h2>
@@ -102,18 +154,48 @@ const CalendarStatistics = () => {
           margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
         >
           <XAxis dataKey="period" />
-          <YAxis ticks={Array.from(Array(100).keys())} />
-          <BarTooltip
-            content={({ label, payload, active }: any) => (
-              <CustomTooltip label={label} active={active} />
-            )}
-          />
+          <YAxis ticks={Array.from(Array(2000).keys())} />
+          {/*<BarTooltip*/}
+          {/*  content={({ label, payload, active }: any) => (*/}
+          {/*    <CustomTooltip label={label} active={active} />*/}
+          {/*  )}*/}
+          {/*/>*/}
 
-          {data.map((item) =>
-            item.allergens.map((allergens) => (
-              <Bar dataKey="period">{allergens.title}</Bar>
-            )),
-          )}
+          {/*{data.map((item, neindex) => {*/}
+          {/*  return (*/}
+          {/*    <Fragment key={item.period}>*/}
+          {/*      {item.allergens.map((allergen, index) => {*/}
+          {/*        return (*/}
+          {/*          <Bar*/}
+          {/*            key={`${item.period}-${index}-${neindex}-${allergen?.value}`}*/}
+          {/*            dataKey={`allergens[${index}].value`}*/}
+          {/*            fill={'#8884d8'}*/}
+          {/*          />*/}
+          {/*        )*/}
+          {/*      })}*/}
+          {/*    </Fragment>*/}
+          {/*  );*/}
+          {/*})}*/}
+
+          {Array.from(Array(maxLength).keys()).map((item, index) => (
+            <Bar
+              key={`${item}-${index}-${index}`}
+              dataKey={`allergens[${index}].value`}
+              fill={'#8884d8'}
+            />
+          ))}
+
+          {/*{data.map((item, index) => {*/}
+          {/*  const firstIndex = index;*/}
+          {/*  return (*/}
+          {/*    <Fragment key={item.period}>*/}
+          {/*      {item.allergens.map((allergen, index) => {*/}
+          {/*        return <Bar key={`${item.period}-${index}`} dataKey={`allergens[${firstIndex}].value`} fill={'#8884d8'} />*/}
+          {/*      })}*/}
+          {/*    </Fragment>*/}
+          {/*  )*/}
+          {/*})}*/}
+
         </BarChart>
       </div>
       <div className="flex justify-center mt-[20px]">
