@@ -30,7 +30,11 @@ const CalendarStatistics = () => {
     getAllergiesUserForMonth(Number(month));
     setCurrentMonthFormat(today.toFormat("LLLL", { locale: "ru-RU" }));
   }, []);
-
+  const periodDays = [
+    `01.${currentMonth}-10.${currentMonth}`,
+    `11.${currentMonth}-20.${currentMonth}`,
+    `21.${currentMonth}-${days.length - 1}.${currentMonth}`,
+  ];
   const data = allergiesMonth.map((item) => {
     const startDate = DateTime.fromFormat(item.start, "dd.MM");
     const endDate = DateTime.fromFormat(item.end, "dd.MM");
@@ -47,12 +51,25 @@ const CalendarStatistics = () => {
         ? dateObj.month === Number(month)
         : dateObj.month === Number(currentMonth);
     });
-
+    // const dateArr = [{
+    //   period: '01.03-10.03',
+    //   allergens: [{
+    //     title: 'asd',
+    //     value:
+    //   }]
+    // }]
     return {
-      ...item,
-      date: filteredDates.length - 1,
+      period: periodDays,
+      allergens: [
+        {
+          title: item.title,
+          value: item.intensity.map((item) => item.value),
+        },
+      ],
     };
   });
+
+  console.log(data);
   const containerRef = useRef<HTMLDivElement>(null);
   const CustomTooltip = ({
     label,
@@ -71,7 +88,6 @@ const CalendarStatistics = () => {
 
     return null;
   };
-  console.log(containerRef.current?.offsetWidth);
   return (
     <div className=" w-full bg-white mt-[5px] pl-[20px] pr-[35px] ">
       <h2 className="text-textMainColor text-32px">График цветения</h2>
@@ -85,23 +101,19 @@ const CalendarStatistics = () => {
           data={data}
           margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
         >
-          <XAxis dataKey="title" />
-          <YAxis
-            ticks={Array.from(
-              { length: days.length === 29 ? 28 : days.length },
-              (_, i) => i + 1,
-            )}
-          />
+          <XAxis dataKey="period" />
+          <YAxis ticks={Array.from(Array(100).keys())} />
           <BarTooltip
             content={({ label, payload, active }: any) => (
               <CustomTooltip label={label} active={active} />
             )}
           />
-          <Bar dataKey="date">
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
-            ))}
-          </Bar>
+
+          {data.map((item) =>
+            item.allergens.map((allergens) => (
+              <Bar dataKey="period">{allergens.title}</Bar>
+            )),
+          )}
         </BarChart>
       </div>
       <div className="flex justify-center mt-[20px]">

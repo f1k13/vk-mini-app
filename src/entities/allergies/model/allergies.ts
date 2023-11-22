@@ -11,6 +11,10 @@ import {
   selectedAdd,
   selectedDelete,
 } from "../lib/allergies-events";
+type Intensity = {
+  period: string;
+  value: string;
+};
 
 export type Allergies = {
   id: number;
@@ -20,6 +24,7 @@ export type Allergies = {
   color: string;
   symptoms: string;
   crossReactions: string;
+  intensity: Intensity[];
 };
 
 export type AllergiesParamsDay = {

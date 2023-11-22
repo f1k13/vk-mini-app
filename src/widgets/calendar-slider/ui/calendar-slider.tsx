@@ -20,6 +20,7 @@ const CalendarSlider = () => {
   const [currentWeek, setCurrentWeek] = useState(today);
 
   const calendarDays = useStore($calendarDays);
+  console.log(calendarDays);
 
   const handleNextWeek = () => {
     const nextWeek = currentWeek.plus({ weeks: 1 });
